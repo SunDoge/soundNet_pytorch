@@ -114,7 +114,7 @@ class SoundNet(nn.Module):
 		return batchnorm, conv
 		
 	def load_weights(self):
-		param_G = np.load('models/sound8.npy', encoding='latin1').item()
+		param_G = np.load('models/sound8.npy', encoding='latin1', allow_pickle=True).item()
 		
 		params_w = param_G['conv1']
 		self.batchnorm1, self.conv1 = self.put_weights(self.batchnorm1, self.conv1, params_w)
