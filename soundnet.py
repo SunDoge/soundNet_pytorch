@@ -96,23 +96,23 @@ class SoundNet(nn.Module):
 		return out.data.numpy()
 	
 	@staticmethod
-def put_weights(batchnorm, conv, params_w, batch_norm=True):
-	if batch_norm:
-		bn_bs = params_w['beta']
-		batchnorm.bias.data = torch.from_numpy(bn_bs)
-		bn_ws = params_w['gamma']
-		batchnorm.weight.data = torch.from_numpy(bn_ws)
-		bn_mean = params_w['mean']
-		batchnorm.running_mean.data = torch.from_numpy(bn_mean)
-		bn_var = params_w['var']
-		batchnorm.running_var.data = torch.from_numpy(bn_var)
-	
-	conv_bs = params_w['biases']
-	conv.bias.data = torch.from_numpy(conv_bs)
-	conv_ws = params_w['weights']
-	conv.weight.data = torch.from_numpy(conv_ws).permute(3, 2, 0, 1)
-	return batchnorm, conv
-	
+	def put_weights(batchnorm, conv, params_w, batch_norm=True):
+		if batch_norm:
+			bn_bs = params_w['beta']
+			batchnorm.bias.data = torch.from_numpy(bn_bs)
+			bn_ws = params_w['gamma']
+			batchnorm.weight.data = torch.from_numpy(bn_ws)
+			bn_mean = params_w['mean']
+			batchnorm.running_mean.data = torch.from_numpy(bn_mean)
+			bn_var = params_w['var']
+			batchnorm.running_var.data = torch.from_numpy(bn_var)
+		
+		conv_bs = params_w['biases']
+		conv.bias.data = torch.from_numpy(conv_bs)
+		conv_ws = params_w['weights']
+		conv.weight.data = torch.from_numpy(conv_ws).permute(3, 2, 0, 1)
+		return batchnorm, conv
+		
 	def load_weights(self):
 		param_G = np.load('models/sound8.npy', encoding='latin1').item()
 		
