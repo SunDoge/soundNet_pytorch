@@ -1,9 +1,11 @@
+import os
+
 import numpy as np
 import torch
 import torch.nn as nn
 from torch import bmm, cat, randn, zeros
 from torch.autograd import Variable
-import os
+
 from util import load_from_txt
 
 LEN_WAVEFORM = 22050 * 20
@@ -161,6 +163,7 @@ def extract_features():
 	model.eval()
 	for idx, sound_sample in enumerate(sound_samples):
 		print(audio_paths[idx])
+		print(sound_sample.shape)
 		new_sample = torch.from_numpy(sound_sample)
 		output = model.forward(new_sample)
 		features['feats'].append(output)
